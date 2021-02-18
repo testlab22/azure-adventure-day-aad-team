@@ -16,7 +16,7 @@ on:
     branches: [ master ]
     paths:
       - GameBot/**
-      - .github/workflows/build-push-gamebot.yml
+      - .github/workflows/build-push-gamebot-to-custom-registry.yml
    
 defaults:
   run:
@@ -38,5 +38,5 @@ jobs:
     # build the docker image
     - name: build and push    
       run: |
-        az acr build --image "gamebot:latest" --registry team11acrdd1c34 --file Dockerfile .
+        az acr build --image "gamebot:latest" --registry team11acrdd1c34.azurecr.io --file Dockerfile .
 
