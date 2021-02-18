@@ -27,22 +27,38 @@ spec:
   strategy:
     type: Recreate
   template:
+metadata:
+  name: arcadebackend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: arcadebackend
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
     metadata:
       labels:
-        name: arcadebackend        
+        name: arcadebackend
     spec:
       # imagePullSecrets:
       #   - name: teamregistry
       containers:
       - name: arcadebackend
-        image: ghcr.io/azure-adventure-day/azure-adventure-day-coach/gamebot:latest
+        image: team11acrdd1c34.azurecr.io/gamebot:latest
         imagePullPolicy: Always
         ports:
           - containerPort: 8080
-            name: arcadebackend         
+            name: arcadebackend
             protocol: TCP
-        env: 
+        env:
           - name: "PORT"
             value: "8080"
           - name: "PICK_STRATEGY"
             value: "RANDOM"
+          - name: "FF_BETS"
+            value: "1"
